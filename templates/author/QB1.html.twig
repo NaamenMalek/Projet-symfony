@@ -1,0 +1,25 @@
+{# templates/author/list.html.twig #}
+<h1>List of Authors</h1>
+
+<table border="1">
+    <thead>
+        <tr>
+            <th>Username</th>
+            <th>Email</th>
+            <th>Number of Books</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for author in authors %}
+            <tr>
+                <td>{{ author.username }}</td>
+                <td>{{ author.email }}</td>
+                <td>{{ author.NbBooks }}</td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">No authors found</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>

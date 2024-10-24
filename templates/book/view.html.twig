@@ -1,0 +1,17 @@
+{# templates/book/view.html.twig #}
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Détails du Livre{% endblock %}
+
+{% block body %}
+    <h1>Détails du Livre</h1>
+    
+    <p><strong>Titre :</strong> {{ book.title }}</p>
+    <p><strong>Date de Publication :</strong> {{ book.publicationDate|date('Y-m-d') }}</p>
+    <p><strong>Catégorie :</strong> {{ book.category }}</p>
+    <p><strong>Publié :</strong> {{ book.published ? 'Oui' : 'Non' }}</p>
+    <p><strong>Auteur :</strong> {{ book.author.username }}</p>
+
+    <a href="{{ path('published_books') }}" class="btn btn-secondary">Retour</a>
+{% endblock %}

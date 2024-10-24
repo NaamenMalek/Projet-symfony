@@ -1,0 +1,51 @@
+
+
+{% block body %}
+    <h1>Livres Publiés: </h1>
+
+    {% if publishedBooks is empty %}
+  
+    {% else %}
+
+
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>Référence</th>
+                    <th>Titre</th>
+                    <th>Date de Publication</th>
+                    <th>Publié</th>
+                    <th>Catégorie</th>
+                    <th>Auteur</th>
+                    <th>Actions</th> {# Nouvelle colonne pour les actions #}
+                </tr>
+            </thead>
+            <tbody>
+                {% for book in publishedBooks %}
+                    <tr>
+                      <td>{{ book.ref }}</td>
+                        <td>{{ book.title }}</td>
+                        <td>{{ book.publicationDate|date('Y-m-d') }}</td>
+                        <td>{{ book.published ? 'Oui' : 'Non' }}</td>
+                        <td>{{ book.category }}</td>
+                        <td>{{ book.author.username }}</td>
+                        <td>
+                            <a href="{{ path('edit_book', { id: book.ref }) }}">Edit</a> | 
+                            <a href="{{ path('delete_book', { id: book.ref }) }}" onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce livre ?');">Delete</a> | 
+                            <a href="{{ path('book_details', { id: book.ref }) }}">Details</a> {# Liens pour les actions #}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <p>Nombre de livres publiés : {{ publishedBooks|length }}</p>
+        <p>Nombre de livres non publiés : {{ unpublishedBooksCount }}</p> {# Remplacez par le bon calcul pour les livres non publiés #}
+        
+        <a href="{{ path('app_book_controller_2') }}">Ajouter un nouveau livre</a>
+    {% endif %}
+<br>
+
+       <a href="{{ path('author_list')}}"> Listes des auteurs </a>
+              
+{% endblock %}

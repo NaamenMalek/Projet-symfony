@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Liste des personnes</title>
+    <style>
+        /* Style global de la page */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 20px;
+        }
+
+        /* Titre de la page */
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+
+        /* Styles du tableau */
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background-color: #fff;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .table th, .table td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .table th {
+            background-color: #007bff;
+            color: white;
+        }
+
+        .table tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        /* Styles des liens d'action */
+        .table a {
+            display: inline-block;
+            padding: 8px 12px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: bold;
+            color: white;
+        }
+
+        .table a.edit {
+            background-color: #ffc107; /* Jaune */
+        }
+
+        .table a.delete {
+            background-color: #dc3545; /* Rouge */
+        }
+
+        .table a:hover {
+            opacity: 0.8; /* Légère réduction de l'opacité au survol */
+        }
+
+        /* Style pour le bouton d'ajout */
+        .add-personne {
+            display: inline-block;
+            padding: 10px 15px;
+            margin: 20px 0;
+            color: white;
+            background-color: #28a745;
+            border: none;
+            border-radius: 5px;
+            text-align: center;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .add-personne:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Liste des personnes:</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>CIN</th>
+            <th>NOM</th>
+            <th>AGE</th>
+            <th>PAYS</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for personne in personnes %}
+            <tr>
+                <td>{{ personne.cin }}</td>
+                <td>{{ personne.nom }}</td>
+                <td>{{ personne.age }}</td>
+                <td>{{ personne.pays.nom }}</td>
+                <td>
+                    <a class="edit" href="{{ path('edit_personne', { cin: personne.cin }) }}">Edit</a> | 
+                    <a class="delete" href="{{ path('delete_personne', { cin: personne.cin }) }}" onclick="return confirm('Are you sure you want to delete this personne?');">Delete</a> 
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<a href="{{ path('add_personne') }}" class="add-personne">Ajouter une nouvelle personne</a>
+
+</body>
+</html>

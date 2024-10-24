@@ -1,0 +1,21 @@
+{# templates/book/search.html.twig #}
+<h1>Search Book by Reference</h1>
+
+<form method="get" action="{{ path('book_search') }}">
+    <label for="ref">Book Reference:</label>
+    <input type="text" name="ref" id="ref" value="{{ ref }}">
+    <button type="submit">Search</button>
+</form>
+
+{% if book %}
+    <h2>Book Details</h2>
+    <ul>
+        <li><strong>Title:</strong> {{ book.title }}</li>
+        <li><strong>Publication Date:</strong> {{ book.publicationDate|date('Y-m-d') }}</li>
+        <li><strong>Category:</strong> {{ book.category }}</li>
+        <li><strong>Published:</strong> {{ book.published ? 'Yes' : 'No' }}</li>
+        <li><strong>Author:</strong> {{ book.author.username }}</li>
+    </ul>
+{% elseif ref is not empty %}
+    <p>No book found with reference "{{ ref }}"</p>
+{% endif %}

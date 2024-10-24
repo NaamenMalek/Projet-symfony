@@ -1,0 +1,34 @@
+{# templates/book/old_and_prolific_authors.html.twig #}
+<h1>Books Published Before 2023 by Prolific Authors (10+ Books)</h1>
+
+<table border="1">
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Author</th>
+            <th>Publication Date</th>
+            <th>Category</th>
+            <th>Published</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for book in books %}
+            <tr>
+                <td>{{ book.title }}</td>
+                <td>{{ book.author.username }}</td>
+                <td>{{ book.publicationDate|date('Y-m-d') }}</td>
+                <td>{{ book.category }}</td>
+                <td>{{ book.published ? 'Yes' : 'No' }}</td>
+                <td>
+               <a href="{{ path('edit_book', { id: book.ref }) }}">Edit</a> | 
+              <a href="{{ path('book_details', { id: book.ref }) }}">Details</a> {# Liens pour les actions #}
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">No books found</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>

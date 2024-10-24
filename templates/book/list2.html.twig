@@ -1,0 +1,57 @@
+{# templates/book/list.html.twig #}
+<h1>List of Books</h1>
+
+<!-- Formulaire de recherche -->
+<form method="get" action="{{ path('book_list') }}">
+    <label for="ref">Search by Reference:</label>
+    <input type="text" name="ref" id="ref" value="{{ ref }}">
+    <button type="submit">Search</button>
+</form>
+
+<!-- Si un livre est trouvé via la recherche -->
+{% if searchedBook %}
+    <h2>Book Found</h2>
+    <ul>
+     <li><strong>Title:</strong> {{ searchedBook.ref }}</li>
+        <li><strong>Title:</strong> {{ searchedBook.title }}</li>
+        <li><strong>Publication Date:</strong> {{ searchedBook.publicationDate|date('Y-m-d') }}</li>
+        <li><strong>Category:</strong> {{ searchedBook.category }}</li>
+        <li><strong>Published:</strong> {{ searchedBook.published ? 'Yes' : 'No' }}</li>
+        <li><strong>Author:</strong> {{ searchedBook.author.username }}</li>
+    </ul>
+{% elseif ref is not empty %}
+    <p>No book found with reference "{{ ref }}"</p>
+{% endif %}
+
+<!-- Liste complète des livres si aucune recherche n'est effectuée -->
+{% if ref is empty %}
+    <h2>All Books</h2>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Reference</th>
+                <th>Title</th>
+                <th>Publication Date</th>
+                <th>Category</th>
+                <th>Published</th>
+                <th>Author</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for book in books %}
+                <tr>
+                      <td>{{ book.ref }}</td>
+                    <td>{{ book.title }}</td>
+                    <td>{{ book.publicationDate|date('Y-m-d') }}</td>
+                    <td>{{ book.category }}</td>
+                    <td>{{ book.published ? 'Yes' : 'No' }}</td>
+                    <td>{{ book.author.username }}</td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="5">No books found</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endif %}
